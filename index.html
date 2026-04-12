@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kumail Raza — Developer Tools Onboarding Audits From Outside Silicon Valley</title>
+<meta name="description" content="I find the hidden friction killing your developer tool's conversion — in 1 week, for $1,500. Case study: 4 critical issues found in 15 minutes on AdaL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070705;
+  --ink:#0d0d0b;
+  --surface:#111110;
+  --border:#1c1c19;
+  --border2:#262622;
+  --lime:#c9f135;
+  --lime-dark:#8fb520;
+  --lime-faint:rgba(201,241,53,.07);
+  --text:#e2ded6;
+  --text2:#9c9890;
+  --muted:#56544e;
+  --muted2:#38372f;
+  --red:#e8402d;
+  --amber:#e89428;
+  --green:#3dca5b;
+  --white:#f2ede5;
+  --warm:#d3b793;
+  --sticky-h:72px;
+  --ticker-h:38px;
+  --nav-h:52px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:crosshair}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);pointer-events:none;z-index:1000}
+
+/* ── CUSTOM CURSOR ── */
+#cur{width:5px;height:5px;background:var(--lime);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s;mix-blend-mode:difference}
+
+/* ── TICKER (SLIDING ANIMATION, ABOVE HEADER) ── */
+.ticker{
+  background:var(--lime);
+  color:#070705;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.66rem;
+  font-weight:500;
+  letter-spacing:.09em;
+  padding:.42rem 0;
+  overflow:hidden;
+  white-space:nowrap;
+  position:relative;
+  z-index:160;
+  width:100%;
+}
+.tick-inner{
+  display:inline-flex;
+  animation:tick 32s linear infinite;
+  white-space:nowrap;
+}
+.tick-inner span{
+  padding:0 2.5rem;
+  display:inline-block;
+}
+.tick-inner span::before{
+  content:'◆  ';
+  opacity:.35;
+}
+@keyframes tick{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+/* ── STICKY CTA BAR ── */
+.sticky-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  height:var(--sticky-h);
+  background:var(--lime);
+  backdrop-filter:blur(0);
+  border-top:1px solid rgba(7,7,5,.12);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+  z-index:200;
+  transform:translateY(100%);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.sticky-bar.visible{transform:translateY(0)}
+.sb-left{display:flex;align-items:center;gap:1.5rem}
+.sb-tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(7,7,5,.45);display:none}
+.sb-status{display:flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:#070705;letter-spacing:.05em;font-weight:500}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:#070705;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.sb-right{display:flex;align-items:center;gap:1rem}
+.sb-microcopy{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(7,7,5,.55);letter-spacing:.04em}
+.sb-cta{background:#070705;padding:.65rem 1.4rem;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;display:inline-block;color:var(--lime);transition:background .15s,transform .12s}
+.sb-cta:hover{background:#1a1a10;transform:translateY(-1px);color:var(--lime)}
+
+/* ── NAV (below ticker, no overlap) ── */
+nav{
+  position:sticky;
+  top:0;
+  left:0;
+  right:0;
+  z-index:150;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 2rem;
+  height:var(--nav-h);
+  background:rgba(7,7,5,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:1.8rem}
+.nav-a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-a:hover{color:var(--lime)}
+.nav-btn{background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.42rem 1rem;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:var(--white)}
+
+/* ── SECTIONS ── */
+.wrap{max-width:1180px;margin:0 auto;padding:5.5rem 2rem}
+section{border-bottom:1px solid var(--border);position:relative;z-index:1}
+.sec-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:3.5rem;display:flex;align-items:center;gap:1rem}
+.sec-label::before{content:attr(data-n);color:var(--muted2)}
+.sec-label::after{content:'';flex:1;max-width:40px;height:1px;background:var(--lime-dark)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;padding:calc(var(--nav-h) + 2rem) 2rem 4rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.hero-bg{position:absolute;right:-2rem;bottom:-5rem;font-family:'Bebas Neue',sans-serif;font-size:clamp(14rem,32vw,40rem);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.028);line-height:1;pointer-events:none;user-select:none;z-index:0}
+.hero-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto;width:100%}
+
+/* Social proof bar */
+.proof-bar{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;padding:.9rem 1.2rem;border:1px solid var(--border2);background:var(--surface);width:fit-content}
+.pb-item{display:flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--text2);letter-spacing:.04em}
+.pb-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0}
+.pb-div{width:1px;height:16px;background:var(--border2)}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:4rem}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10.5vw,10rem);line-height:.9;letter-spacing:-.01em;color:var(--white)}
+h1 em{font-style:normal;color:var(--lime)}
+h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
+.hero-sub{font-size:1.05rem;line-height:1.72;color:var(--text2);margin-bottom:2rem}
+.hero-sub strong{color:var(--text);font-weight:400}
+
+/* Primary CTA block */
+.hero-cta-block{display:flex;flex-direction:column;gap:.6rem}
+.hcta-main{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  background:var(--lime);color:#070705;
+  font-family:'IBM Plex Mono',monospace;font-size:.82rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:1rem 2rem;text-decoration:none;
+  transition:background .15s,transform .12s;
+  width:100%;max-width:340px;
+}
+.hcta-main:hover{background:var(--white);transform:translateY(-2px)}
+.hcta-micro{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.04em;padding-left:.2rem}
+.hcta-secondary{display:inline-flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border2);padding-bottom:.15rem;width:fit-content;transition:color .15s,border-color .15s;margin-top:.2rem}
+.hcta-secondary:hover{color:var(--lime);border-color:var(--lime)}
+
+/* Hero stats */
+.hero-bottom{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-bottom:none}
+.hstat{padding:1.4rem 1.5rem;border-right:1px solid var(--border)}
+.hstat:last-child{border-right:none}
+.hstat-n{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;color:var(--white);margin-bottom:.2rem}
+.hstat-n em{font-style:normal;color:var(--lime)}
+.hstat-l{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.4}
+
+/* ── PROBLEM / VALUE PROP ── */
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border)}
+.pcell{padding:2.2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.pcell.span2{grid-column:1/-1;border-right:none}
+.pcell:nth-child(even):not(.span2){border-right:none}
+.pcell:nth-last-child(-n+2):not(.span2){border-bottom:none}
+.plabel{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem}
+.phead{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,3vw,2.8rem);line-height:1;color:var(--white);margin-bottom:.7rem}
+.pbody{font-size:.87rem;line-height:1.72;color:var(--text2)}
+.pbody strong{color:var(--warm);font-weight:400}
+
+/* ── MID-PAGE CTA ── */
+.mid-cta{background:var(--lime);padding:3rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;border-top:none;border-bottom:none}
+.mid-cta-left{flex:1;min-width:260px}
+.mid-cta-head{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);line-height:.95;color:#070705;margin-bottom:.5rem}
+.mid-cta-sub{font-size:.88rem;color:rgba(7,7,5,.6);line-height:1.6;max-width:400px}
+.mid-cta-right{display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
+.mid-btn{background:#070705;color:var(--lime);font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.85rem 1.8rem;text-decoration:none;transition:background .15s;white-space:nowrap;display:inline-block}
+.mid-btn:hover{background:#1a1a10}
+.mid-micro{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(7,7,5,.5);letter-spacing:.04em}
+
+/* ── TERMINAL ── */
+.term-wrap{border:1px solid var(--border2);background:#09090700}
+.term-bar{background:var(--border);padding:.65rem 1rem;display:flex;align-items:center;gap:.45rem}
+.td{width:10px;height:10px;border-radius:50%}
+.t-r{background:#e8402d}.t-a{background:#e89428}.t-g{background:#3dca5b}
+.t-title{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.06em;margin-left:.4rem}
+.term-body{padding:1.3rem 1.5rem;font-family:'IBM Plex Mono',monospace;font-size:.76rem;line-height:1.88}
+.tp{color:var(--lime)}.tc{color:var(--white)}.to{color:var(--text2)}
+.te{color:var(--red)}.tw{color:var(--amber)}.tok{color:var(--green)}.tdim{color:var(--muted)}
+.tcur{display:inline-block;width:7px;height:.88em;background:var(--lime);animation:blink .9s step-end infinite;vertical-align:text-bottom}
+@keyframes blink{50%{opacity:0}}
+
+/* ── CASE STUDY FINDINGS ── */
+.case-head{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem}
+.case-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5rem);line-height:.93;color:var(--white)}
+.case-title em{font-style:normal;-webkit-text-stroke:1px var(--white);color:transparent}
+.case-intro{font-size:.87rem;line-height:1.75;color:var(--text2)}
+.case-meta{margin-top:1.3rem;padding:.9rem 1.1rem;border:1px solid var(--border2);background:var(--surface)}
+.cm-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.cm-val{font-size:.78rem;color:var(--text2);line-height:1.55}
+
+.frow{border-top:1px solid var(--border);display:grid;grid-template-columns:86px 1fr 180px;gap:1.8rem;padding:1.6rem 0;align-items:start;opacity:0;transform:translateY(8px);transition:opacity .38s ease,transform .38s ease,background .15s;cursor:default}
+.frow:hover{background:rgba(201,241,53,.018)}
+.frow:last-child{border-bottom:1px solid var(--border)}
+.fsev{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .45rem;font-weight:500;text-align:center;border:1px solid}
+.sc{background:rgba(232,64,45,.1);color:var(--red);border-color:rgba(232,64,45,.2)}
+.sm{background:rgba(232,148,40,.08);color:var(--amber);border-color:rgba(232,148,40,.18)}
+.sg{background:rgba(61,202,91,.07);color:var(--green);border-color:rgba(61,202,91,.14)}
+.ftitle{font-size:.93rem;font-weight:400;color:var(--white);margin-bottom:.38rem}
+.fdesc{font-size:.8rem;color:var(--text2);line-height:1.62;max-width:540px}
+.ffix{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--lime-dark);letter-spacing:.04em;text-align:right;line-height:1.5;padding-top:.1rem}
+
+/* inline CTA after case study */
+.case-bottom-cta{margin-top:3rem;padding:2rem;border:1px solid var(--lime-dark);background:var(--lime-faint);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.cbc-left{font-size:.93rem;color:var(--text)}
+.cbc-left strong{color:var(--lime);font-weight:400}
+.cbc-right{display:flex;flex-direction:column;gap:.4rem;align-items:flex-end}
+.cbc-btn{background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.72rem 1.4rem;text-decoration:none;transition:background .15s;white-space:nowrap;display:inline-block}
+.cbc-btn:hover{background:var(--white)}
+.cbc-micro{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.04em}
+
+/* ── OFFERINGS ── */
+.offers{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border)}
+.ocard{padding:2.3rem;border-right:1px solid var(--border);display:flex;flex-direction:column;transition:background .18s;position:relative}
+.ocard:last-child{border-right:none}
+.ocard:hover{background:rgba(255,255,255,.01)}
+.ocard.feat{background:var(--lime)}
+.ocard.feat:hover{background:#d4ff60}
+.obadge{font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border2);display:inline-block;padding:.18rem .45rem;margin-bottom:1.6rem;width:fit-content}
+.ocard.feat .obadge{color:rgba(7,7,5,.45);border-color:rgba(7,7,5,.15)}
+.oprice{font-family:'Bebas Neue',sans-serif;font-size:3.3rem;line-height:1;color:var(--white);margin-bottom:.1rem}
+.ocard.feat .oprice{color:#070705}
+.otime{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:var(--muted);margin-bottom:1.8rem}
+.ocard.feat .otime{color:rgba(7,7,5,.4)}
+.odiv{height:1px;background:var(--border);margin-bottom:1.8rem}
+.ocard.feat .odiv{background:rgba(7,7,5,.12)}
+.oname{font-size:.93rem;font-weight:400;color:var(--white);margin-bottom:1.1rem}
+.ocard.feat .oname{color:#070705}
+.olist{list-style:none;display:flex;flex-direction:column;gap:.48rem;flex:1}
+.oitem{font-size:.79rem;color:var(--text2);display:flex;gap:.4rem;align-items:flex-start;line-height:1.52}
+.oitem::before{content:'→';color:var(--lime-dark);flex-shrink:0;margin-top:.04rem}
+.ocard.feat .oitem{color:rgba(7,7,5,.62)}
+.ocard.feat .oitem::before{color:rgba(7,7,5,.3)}
+.ocard-cta{margin-top:2rem;display:flex;flex-direction:column;gap:.4rem}
+.o-btn{display:block;font-family:'IBM Plex Mono',monospace;font-size:.67rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:.7rem 1rem;text-align:center;transition:all .15s}
+.o-btn-outline{border:1px solid var(--border2);color:var(--muted)}
+.o-btn-outline:hover{border-color:var(--lime);color:var(--lime)}
+.ocard.feat .o-btn{background:#070705;color:var(--lime)}
+.ocard.feat .o-btn:hover{background:#1a1a10}
+.o-micro{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.04em;text-align:center}
+.ocard.feat .o-micro{color:rgba(7,7,5,.4)}
+
+/* ── WHY DIFFERENT ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.why-sticky{position:sticky;top:calc(var(--nav-h) + 1rem)}
+.wbig{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5rem);line-height:.93;color:var(--white);margin-bottom:1.2rem}
+.wbig em{font-style:normal;-webkit-text-stroke:1.5px var(--white);color:transparent}
+.wbody{font-size:.87rem;line-height:1.75;color:var(--text2);margin-bottom:1.8rem}
+.wtable{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:.67rem}
+.wtable th{text-align:left;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:.55rem 0;border-bottom:1px solid var(--border);font-weight:400}
+.wtable td{padding:.55rem 0;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.wtable td:first-child{color:var(--text);padding-right:1.5rem}
+.wtable tr:last-child td{border-bottom:none}
+.lime{color:var(--lime)}
+.wcards{display:flex;flex-direction:column;gap:1px}
+.wcard{background:var(--ink);border:1px solid var(--border);padding:1.8rem;transition:border-color .18s}
+.wcard:hover{border-color:var(--border2)}
+.wc-tag{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--lime);letter-spacing:.12em;margin-bottom:.9rem;display:flex;align-items:center;gap:.4rem}
+.wc-tag::before{content:'[';color:var(--muted2)}.wc-tag::after{content:']';color:var(--muted2)}
+.wc-title{font-size:.92rem;font-weight:400;color:var(--white);margin-bottom:.45rem}
+.wc-text{font-size:.8rem;color:var(--text2);line-height:1.62}
+.wc-text strong{color:var(--lime-dark);font-weight:400}
+
+/* ── FAQ ── */
+.faq-grid{display:flex;flex-direction:column;gap:0}
+.faq-item{border-top:1px solid var(--border);padding:1.5rem 0}
+.faq-item:last-child{border-bottom:1px solid var(--border)}
+.faq-q{font-size:.92rem;color:var(--white);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;user-select:none}
+.faq-arrow{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--lime);transition:transform .2s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(45deg)}
+.faq-a{font-size:.84rem;line-height:1.7;color:var(--text2);max-height:0;overflow:hidden;transition:max-height .3s ease,margin-top .3s ease}
+.faq-item.open .faq-a{max-height:200px;margin-top:.8rem}
+
+/* ── FINAL CTA SECTION ── */
+.final-cta-section{background:var(--surface);padding:6rem 2rem;border-bottom:none}
+.final-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.fhl{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6.5vw,6.5rem);line-height:.9;color:var(--white);margin-bottom:1.2rem}
+.fhl em{font-style:normal;display:block;color:var(--lime)}
+.fsub{font-size:.9rem;line-height:1.75;color:var(--text2);margin-bottom:2rem;max-width:420px}
+.guarantee{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.2rem;border:1px solid var(--border2);background:var(--bg);margin-bottom:2rem}
+.g-icon{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--lime);flex-shrink:0;margin-top:.05rem}
+.g-text{font-size:.82rem;color:var(--text2);line-height:1.6}
+.g-text strong{color:var(--text);font-weight:400}
+.book-box{background:var(--bg);border:1px solid var(--border2);padding:2.3rem}
+.bb-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.3rem}
+.bb-price{font-family:'Bebas Neue',sans-serif;font-size:4.2rem;line-height:1;color:var(--lime);margin-bottom:.15rem}
+.bb-note{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.05em;margin-bottom:1.8rem}
+.bb-list{list-style:none;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border)}
+.bb-item{display:flex;align-items:flex-start;gap:.55rem;font-size:.82rem;color:var(--text2);padding:.3rem 0}
+.bb-item::before{content:'✓';color:var(--lime);font-size:.72rem;flex-shrink:0;margin-top:.18rem}
+.book-cta-wrap{display:flex;flex-direction:column;gap:.45rem}
+.book-btn{display:block;background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.76rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.95rem 1.5rem;text-decoration:none;text-align:center;transition:background .15s,transform .12s}
+.book-btn:hover{background:var(--white);transform:translateY(-1px)}
+.book-micro{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.04em;text-align:center}
+.avail{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.8rem;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--text2);letter-spacing:.04em}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+.alt-cta{margin-top:.8rem;text-align:center}
+.alt-cta a{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--muted);letter-spacing:.05em;text-decoration:none;border-bottom:1px solid var(--border2);padding-bottom:.1rem;transition:color .15s,border-color .15s}
+.alt-cta a:hover{color:var(--lime);border-color:var(--lime)}
+
+/* ── PROOF STRIP ── */
+.proof-strip{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border)}
+.pitem{padding:1.8rem 2rem;border-right:1px solid var(--border);transition:background .15s}
+.pitem:last-child{border-right:none}
+.pitem:hover{background:rgba(255,255,255,.01)}
+.ptype{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem}
+.ptitle{font-size:.9rem;color:var(--white);font-weight:400;margin-bottom:.45rem;line-height:1.28}
+.pdesc{font-size:.79rem;color:var(--text2);line-height:1.6;margin-bottom:1.1rem}
+.plink{font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--lime);text-decoration:none;letter-spacing:.06em;display:inline-flex;align-items:center;gap:.35rem;transition:gap .15s}
+.plink:hover{gap:.65rem}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-bottom:calc(var(--sticky-h) + 1.4rem)}
+.fl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.07em;color:var(--muted)}
+.flinks{list-style:none;display:flex;gap:1.8rem}
+.flinks a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.07em;color:var(--muted);text-decoration:none;transition:color .15s}
+.flinks a:hover{color:var(--lime)}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.revealed{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .hero-grid,.case-head,.why-grid,.final-inner{grid-template-columns:1fr}
+  .why-sticky{position:static}
+  .hero-bottom{grid-template-columns:1fr 1fr}
+  .offers,.proof-strip{grid-template-columns:1fr}
+  .ocard,.pitem{border-right:none;border-bottom:1px solid var(--border)}
+  .ocard:last-child,.pitem:last-child{border-bottom:none}
+  .prob-grid{grid-template-columns:1fr}
+  .pcell{border-right:none}
+  .pcell:nth-last-child(-n+2){border-bottom:1px solid var(--border)}
+  .pcell:last-child{border-bottom:none}
+  .frow{grid-template-columns:80px 1fr;gap:1rem}
+  .ffix{display:none}
+  .mid-cta{flex-direction:column;align-items:flex-start}
+  .cbc-right{align-items:flex-start}
+  nav{padding:0 1.2rem}
+  .nav-a{display:none}
+  .sticky-bar{padding:0 1.2rem;height:68px}
+  .sb-tag,.sb-microcopy{display:none}
+  .wrap{padding:4rem 1.2rem}
+  h1{font-size:clamp(3.5rem,14vw,7rem)}
+  footer{padding-bottom:calc(var(--sticky-h) + 1rem)}
+  .ticker{font-size:.55rem}
+}
+@media(max-width:520px){
+  .hero-bottom{grid-template-columns:1fr 1fr}
+  .proof-bar{gap:1rem}
+  .pb-div{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+
+<!-- TICKER (SLIDING ANIMATION WORKING) -->
+<div class="ticker">
+  <div class="tick-inner">
+    <span>Onboarding Friction Analysis</span>
+    <span>Developer Tools Adoption</span>
+    <span>Emerging Market Research</span>
+    <span>Competitive Intelligence</span>
+    <span>Karachi → Silicon Valley</span>
+    <span>Fresh-User Simulation</span>
+    <span>Conversion Optimization</span>
+    <span>Documentation Audit</span>
+    <span>Onboarding Friction Analysis</span>
+    <span>Developer Tools Adoption</span>
+    <span>Emerging Market Research</span>
+    <span>Competitive Intelligence</span>
+    <span>Karachi → Silicon Valley</span>
+    <span>Fresh-User Simulation</span>
+    <span>Conversion Optimization</span>
+    <span>Documentation Audit</span>
+  </div>
+</div>
+
+<!-- NAV (below ticker, sticky) -->
+<nav>
+  <a href="#top" class="nav-logo">KR_</a>
+  <div class="nav-links">
+    <a href="#findings" class="nav-a">Case Study</a>
+    <a href="#offerings" class="nav-a">Pricing</a>
+    <a href="#faq" class="nav-a">FAQ</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="nav-btn" target="_blank">Book My Free Call →</a>
+  </div>
+</nav>
+
+<!-- STICKY BOTTOM BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sb-left">
+    <div class="sb-status"><div class="sb-dot"></div>Taking new clients — 2 slots open this week</div>
+  </div>
+  <div class="sb-right">
+    <span class="sb-microcopy">No credit card · 15 min · No pitch deck</span>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="sb-cta" target="_blank">Book My Free Call →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">90%</div>
+  <div class="hero-inner">
+    <div class="proof-bar reveal">
+      <div class="pb-item"><div class="pb-dot"></div>4 critical issues found in 15 min</div>
+      <div class="pb-div"></div>
+      <div class="pb-item"><div class="pb-dot"></div>AdaL · April 2026 · Karachi, Pakistan</div>
+      <div class="pb-div"></div>
+      <div class="pb-item"><div class="pb-dot"></div>$0 cost to fix the highest-impact issue</div>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1>Outside<br><em>the</em><span class="outline">bubble.</span></h1>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:1.8rem">
+        <p class="hero-sub">Your SF team can't simulate what a developer in Karachi experiences when they hit your landing page for the first time.<br><br><strong>I can — and I document every moment they'd give up.</strong></p>
+        <div class="hero-cta-block">
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank">Book My Free 15-Min Call →</a>
+          <span class="hcta-micro">No credit card · No pitch deck · No follow-up sequence</span>
+          <a href="#findings" class="hcta-secondary">See the AdaL case study ↓</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottom reveal">
+      <div class="hstat"><div class="hstat-n"><em>4</em></div><div class="hstat-l">Critical issues found in 15 min</div></div>
+      <div class="hstat"><div class="hstat-n"><em>$0</em></div><div class="hstat-l">Cost to fix the highest-impact issue</div></div>
+      <div class="hstat"><div class="hstat-n"><em>3</em></div><div class="hstat-l">Conflicting install commands, one product</div></div>
+      <div class="hstat"><div class="hstat-n"><em>1</em> wk</div><div class="hstat-l">Full audit delivered in your inbox</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-label" data-n="01">The problem</div>
+    <div class="prob-grid reveal">
+      <div class="pcell span2">
+        <div class="plabel">Why your team is blind to it</div>
+        <div class="phead">You've already normalized it.</div>
+        <div class="pbody">Your engineers use the tool daily. They know the install command. They know the free trial exists. They've forgotten what it felt like not to know. <strong>That amnesia is costing you conversions at every step.</strong></div>
+      </div>
+      <div class="pcell">
+        <div class="plabel">What your visitors see</div>
+        <div class="phead">Paid plans only.</div>
+        <div class="pbody">No free trial visible. Generic hero copy. No install command. A 404 where the docs should be. <strong>They leave before you get a chance.</strong></div>
+      </div>
+      <div class="pcell">
+        <div class="plabel">The emerging market layer</div>
+        <div class="phead">Outside the Valley.</div>
+        <div class="pbody">Payment friction. Currency gaps. Browser auth that breaks on headless servers. <strong>Your fastest-growing segment hits different walls — and nobody is mapping them.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MID-PAGE CTA -->
+<div class="mid-cta reveal">
+  <div class="mid-cta-left">
+    <div class="mid-cta-head">See what I'd find in your product — free.</div>
+    <div class="mid-cta-sub">15-minute call. You talk, I listen. I'll tell you if I can help and what I'd look for first.</div>
+  </div>
+  <div class="mid-cta-right">
+    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="mid-btn" target="_blank">Book My Free Call →</a>
+    <span class="mid-micro">No credit card · No pitch deck · Cancellable anytime</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-label" data-n="02">How it works</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start" class="reveal">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.3rem,4.5vw,4.2rem);line-height:.95;color:var(--white);margin-bottom:1.3rem">Fresh user.<br>15 minutes.<br><span style="color:var(--lime)">Full report.</span></div>
+        <p style="font-size:.87rem;color:var(--text2);line-height:1.75;margin-bottom:1.8rem">I simulate the exact path your first-time users take — from Google search to first useful output. Every point where they'd hesitate, get confused, or give up gets logged with severity and a fix.</p>
+        <div style="display:flex;flex-direction:column;gap:.75rem">
+          <div style="display:flex;gap:1rem;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--lime);min-width:24px">01</span><span style="font-size:.84rem;color:var(--text2)">Share your URL. Nothing else needed.</span></div>
+          <div style="display:flex;gap:1rem;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--lime);min-width:24px">02</span><span style="font-size:.84rem;color:var(--text2)">I walk through as a stranger. Zero briefing.</span></div>
+          <div style="display:flex;gap:1rem;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--lime);min-width:24px">03</span><span style="font-size:.84rem;color:var(--text2)">Every friction point: severity + exact fix.</span></div>
+          <div style="display:flex;gap:1rem;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--lime);min-width:24px">04</span><span style="font-size:.84rem;color:var(--text2)">10-page PDF in your inbox in 1 week.</span></div>
+        </div>
+      </div>
+      <div class="term-wrap">
+        <div class="term-bar"><div class="td t-r"></div><div class="td t-a"></div><div class="td t-g"></div><span class="t-title">adal_audit.sh — kumail@karachi</span></div>
+        <div class="term-body">
+          <div><span class="tp">❯ </span><span class="tc">run audit --target sylph.ai --budget 15min</span></div>
+          <div class="tdim">───────────────────────────────────────</div>
+          <div class="to">Step 1: Google → landing page</div>
+          <div class="to">→ <span class="tok">PASS</span>  Design: clean, modern</div>
+          <div class="to">→ <span class="tw">WARN</span>  Hero copy: no product type stated</div>
+          <div class="to">→ <span class="te">CRIT</span>  Free trial: invisible to visitors</div>
+          <div class="to">→ <span class="te">CRIT</span>  Install command: missing from landing</div>
+          <div class="tdim">───────────────────────────────────────</div>
+          <div class="to">Step 2: $ curl -I https://sylph.ai/docs</div>
+          <div class="to">→ <span class="te">404 Not Found</span>  ← trust killer</div>
+          <div class="to">→ <span class="te">CRIT</span>  ~15% of doc-seekers abandon here</div>
+          <div class="tdim">───────────────────────────────────────</div>
+          <div class="to">Step 3: Install command audit</div>
+          <div class="to">→ Landing:    <span class="tw">none</span></div>
+          <div class="to">→ Quickstart: <span class="tok">curl install.sh</span></div>
+          <div class="to">→ LinkedIn:   <span class="tw">npm i -g @sylphai/adal-cli</span></div>
+          <div class="to">→ <span class="te">CRIT</span>  3 channels, 3 different commands</div>
+          <div class="tdim">───────────────────────────────────────</div>
+          <div><span class="tp">❯ </span><span class="tcur"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY FINDINGS -->
+<section id="findings">
+  <div class="wrap">
+    <div class="sec-label" data-n="03">AdaL case study — April 2026</div>
+    <div class="case-head reveal">
+      <div class="case-title">Hidden friction.<br><em>Real cost.</em></div>
+      <div class="case-intro">
+        I walked through AdaL — an AI coding agent by SylphAI — as a brand-new developer, 15-minute budget, zero prior knowledge. Below is every finding, exactly as delivered.
+        <div class="case-meta">
+          <div class="cm-label">Methodology</div>
+          <div class="cm-val">Fresh-user walkthrough · Google → landing → docs → install → first run · No briefing · 15-min budget · Karachi, Pakistan · April 2026</div>
+        </div>
+      </div>
+    </div>
+    <div id="flist">
+      <div class="frow"><div class="fsev sc">Critical</div><div><div class="ftitle">Free trial completely invisible on landing page</div><div class="fdesc">Page shows only paid plans — $20, $100, $200/month. The 7-day free trial exists but appears nowhere on the landing page, quickstart, or pricing section. First-time visitors see only paid options and bounce.</div></div><div class="ffix">→ Fix: 1 line of copy above pricing. Highest conversion impact on the site.</div></div>
+      <div class="frow"><div class="fsev sc">Critical</div><div><div class="ftitle">sylph.ai/docs returns a 404 page</div><div class="fdesc">The intuitive URL for docs returns "Oops! Page not found." Docs live at docs.sylph.ai — but anyone who guesses the URL, follows an old link, or clicks a search result hits a dead end. Dead URLs kill trust immediately.</div></div><div class="ffix">→ Fix: One nginx redirect. ~30 min engineering time.</div></div>
+      <div class="frow"><div class="fsev sc">Critical</div><div><div class="ftitle">Three different install commands across three channels</div><div class="fdesc">Landing page: nothing. Quickstart: curl. LinkedIn: npm. A developer following recent social posts uses the wrong command, hits an error, and has zero guidance. First impression = broken product.</div></div><div class="ffix">→ Fix: Standardize one command. Update LinkedIn posts.</div></div>
+      <div class="frow"><div class="fsev sc">Critical</div><div><div class="ftitle">Careers page invisible to search engines</div><div class="fdesc">SPA-rendered — bots see only a shell HTML file. A hiring post with 167 reactions sends traffic to a page Google cannot read. Job listings are completely invisible to developers searching for roles.</div></div><div class="ffix">→ Fix: SSR or static HTML fallback.</div></div>
+      <div class="frow"><div class="fsev sm">Medium</div><div><div class="ftitle">Hero text doesn't say what AdaL is</div><div class="fdesc">"Bringing ideas to life for developers worldwide" — can't tell if this is an IDE, CLI, library, or SaaS. The killer feature (mid-session model switching) is buried below the fold.</div></div><div class="ffix">→ One-liner: "AI coding agent that switches models mid-session."</div></div>
+      <div class="frow"><div class="fsev sm">Medium</div><div><div class="ftitle">No expected terminal output in quickstart</div><div class="fdesc">After running adal, docs say "First run opens browser for auth" — but show nothing of what success looks like. Developers can't confirm they succeeded or diagnose failure.</div></div><div class="ffix">→ Add one terminal output screenshot.</div></div>
+      <div class="frow"><div class="fsev sm">Medium</div><div><div class="ftitle">No troubleshooting section anywhere</div><div class="fdesc">What if install fails? Auth browser won't open? No guidance exists for any first-run failure. These exact failures kill activation and are easily fixed with one doc page.</div></div><div class="ffix">→ Add: PATH, Node version, auth timeout, firewall.</div></div>
+      <div class="frow"><div class="fsev sg">Good</div><div><div class="ftitle">Quickstart structure is solid once you reach it</div><div class="fdesc">3 clear steps (Install → Launch → Try It), copy-paste commands, shortcuts table. One of the strongest pages in the product. The problem is the journey to it — not the page itself.</div></div><div class="ffix">→ Keep this. Build on it.</div></div>
+    </div>
+    <div class="case-bottom-cta reveal">
+      <div class="cbc-left">This is what I deliver for <strong>every client</strong> — documented, prioritized, actionable. No fluff. What would I find in <strong>your</strong> product?</div>
+      <div class="cbc-right">
+        <a href="https://calendly.com/tag-kumail/new-meeting-1" class="cbc-btn" target="_blank">Book My Free 15-Min Call →</a>
+        <span class="cbc-micro">No credit card · No pitch deck · No follow-up pressure</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section id="offerings">
+  <div class="wrap">
+    <div class="sec-label" data-n="04">Offerings</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem" class="reveal">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.3rem,4.5vw,4.5rem);line-height:.95;color:var(--white)">Three ways to<br>work together.</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:var(--muted);line-height:1.6;text-align:right">Not sure which fits?<br><a href="https://calendly.com/tag-kumail/new-meeting-1" style="color:var(--lime);text-decoration:none" target="_blank">The 15-min call is free →</a></div>
+    </div>
+    <div class="offers reveal">
+      <div class="ocard">
+        <div class="obadge">Starter</div>
+        <div class="oprice">$500</div>
+        <div class="otime">// delivered in 3 days</div>
+        <div class="odiv"></div>
+        <div class="oname">Onboarding Friction Audit</div>
+        <ul class="olist">
+          <li class="oitem">Fresh-user walkthrough: search → install → first output</li>
+          <li class="oitem">Every friction point with severity rating</li>
+          <li class="oitem">Top 3 highest-impact fixes with notes</li>
+          <li class="oitem">5-page PDF deliverable</li>
+          <li class="oitem">Emerging market lens included</li>
+        </ul>
+        <div class="ocard-cta">
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn o-btn-outline" target="_blank">Book a Call to Start →</a>
+          <span class="o-micro">50% upfront · 50% on delivery</span>
+        </div>
+      </div>
+      <div class="ocard feat">
+        <div class="obadge">Most popular</div>
+        <div class="oprice">$1,500</div>
+        <div class="otime">// delivered in 1 week</div>
+        <div class="odiv"></div>
+        <div class="oname">Full Adoption Audit</div>
+        <ul class="olist">
+          <li class="oitem">Everything in Starter, plus:</li>
+          <li class="oitem">Full documentation audit — every page</li>
+          <li class="oitem">Competitive comparison vs 2 tools</li>
+          <li class="oitem">Messaging consistency: landing ↔ docs ↔ social</li>
+          <li class="oitem">Prioritized fix list — implementable same week</li>
+          <li class="oitem">10-page PDF + 30-min debrief call</li>
+        </ul>
+        <div class="ocard-cta">
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn" target="_blank">Book My Free 15-Min Call →</a>
+          <span class="o-micro">No credit card · Discovery call is free</span>
+        </div>
+      </div>
+      <div class="ocard">
+        <div class="obadge">Deep research</div>
+        <div class="oprice">$3K+</div>
+        <div class="otime">// 2–4 weeks · custom scope</div>
+        <div class="odiv"></div>
+        <div class="oname">Emerging Market Research</div>
+        <ul class="olist">
+          <li class="oitem">Full adoption audit, plus:</li>
+          <li class="oitem">Developer survey: South Asia / SE Asia</li>
+          <li class="oitem">Payment friction &amp; pricing sensitivity analysis</li>
+          <li class="oitem">Community health assessment</li>
+          <li class="oitem">Segment report: the users you're not tracking</li>
+        </ul>
+        <div class="ocard-cta">
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn o-btn-outline" target="_blank">Discuss Scope →</a>
+          <span class="o-micro">Scope defined together on discovery call</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY DIFFERENT -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-label" data-n="05">Why different</div>
+    <div class="why-grid">
+      <div class="why-sticky reveal">
+        <div class="wbig">Your competitors<br>test from<br><em>San Francisco.</em></div>
+        <div class="wbody">I test from Karachi. That 7,500-mile difference reveals friction your internal team is permanently immune to — because they built the product and can't un-know it.</div>
+        <table class="wtable">
+          <thead><tr><th>Metric</th><th>AdaL audit result</th></tr></thead>
+          <tbody>
+            <tr><td>Time to find install command</td><td class="lime">~3 min (not on landing)</td></tr>
+            <tr><td>Time to first output</td><td class="lime">~5 min (incl. auth)</td></tr>
+            <tr><td>Dead ends hit</td><td class="lime">2 (404 + no trial path)</td></tr>
+            <tr><td>Site switches needed</td><td class="lime">3 (sylph → docs → auth)</td></tr>
+            <tr><td>Would new user give up?</td><td style="color:var(--red)">Yes — at pricing</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="wcards reveal">
+        <div class="wcard"><div class="wc-tag">Outsider perspective</div><div class="wc-title">I represent the developers you're losing</div><div class="wc-text">The fastest-growing developer segment is outside the US. I catch payment friction, currency gaps, bandwidth-heavy docs, and browser-auth flows that break on headless servers. <strong>Your San Francisco team cannot reproduce this experience.</strong></div></div>
+        <div class="wcard"><div class="wc-tag">Technical depth</div><div class="wc-title">I know what I'm evaluating</div><div class="wc-text">5+ years in data and AI engineering. I tell whether a gap is a documentation problem or an architecture problem. I don't confuse bugs with friction. <strong>Every finding is precise — not impressionistic.</strong></div></div>
+        <div class="wcard"><div class="wc-tag">Business lens</div><div class="wc-title">Every finding has a conversion impact estimate</div><div class="wc-text">Double degree in business finance and CS. I frame friction in terms of what it costs you — not just what it feels like. <strong>You know which fix moves the metric, and by how much.</strong></div></div>
+        <div class="wcard"><div class="wc-tag">Speed</div><div class="wc-title">PDF in your inbox. No overhead.</div><div class="wc-text">No team to manage. No kickoff decks. No recurring status calls. PDF in one week. <strong>Most teams implement at least one fix the same day they receive it.</strong></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap" style="padding-top:4rem;padding-bottom:4rem">
+    <div class="sec-label" data-n="06">Work &amp; proof</div>
+    <div class="proof-strip reveal">
+      <div class="pitem">
+        <div class="ptype">Article · Medium</div>
+        <div class="ptitle">Coding Agent Comparison From Outside Silicon Valley</div>
+        <div class="pdesc">Independent analysis of AdaL, GitHub Copilot, and DeepSeek from Karachi. Onboarding friction, model flexibility, cost architecture, emerging market reality.</div>
+        <a href="https://medium.com/@tag.kumail" class="plink" target="_blank">Read on Medium →</a>
+      </div>
+      <div class="pitem">
+        <div class="ptype">Project · GitHub</div>
+        <div class="ptitle">UI/UX Doctor — Hackathon Project</div>
+        <div class="pdesc">Next.js 16, React 19, TypeScript, Tailwind. UI/UX automation tool. Tested with AdaL Deep Research — generated model routing matrix and competitor analysis.</div>
+        <a href="https://github.com/KumailQazi" class="plink" target="_blank">View on GitHub →</a>
+      </div>
+      <div class="pitem">
+        <div class="ptype">Background</div>
+        <div class="ptitle">AI &amp; Data Engineer. Microsoft Certified.</div>
+        <div class="pdesc">Business finance + CS. Currently building pharma enterprise MCP + analytics for C-suite BI in Karachi. Active in SylphAI, Cursor, and Cline ecosystems.</div>
+        <a href="https://www.linkedin.com/in/kumail-raza-76508856/" class="plink" target="_blank">LinkedIn →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-label" data-n="07">FAQ</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start" class="reveal">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.8rem);line-height:.95;color:var(--white);margin-bottom:1.2rem">Questions founders actually ask.</div>
+        <p style="font-size:.87rem;color:var(--text2);line-height:1.72;margin-bottom:2rem">If you have one that's not here, the fastest way to get an answer is the 15-min call. It's free.</p>
+        <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank" style="font-size:.72rem;max-width:280px">Book My Free Call →</a>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);margin-top:.55rem;letter-spacing:.04em">No credit card · No pitch deck · 15 min</div>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item"><div class="faq-q">Do you need access to our codebase or internal tools? <span class="faq-arrow">+</span></div><div class="faq-a">No. I evaluate entirely from the outside — the same way your users do. Just your public URL. That's it.</div></div>
+        <div class="faq-item"><div class="faq-q">What if we're pre-launch or have a private beta? <span class="faq-arrow">+</span></div><div class="faq-a">That works too. Share a staging URL or a beta access link. I'll evaluate the flow your users will experience exactly as you'd intended it.</div></div>
+        <div class="faq-item"><div class="faq-q">How is this different from a standard UX audit? <span class="faq-arrow">+</span></div><div class="faq-a">Most UX audits are done by researchers in your own market. I evaluate specifically from an emerging market developer's perspective — which adds a layer of insight your domestic testers physically cannot provide.</div></div>
+        <div class="faq-item"><div class="faq-q">What if I disagree with your findings? <span class="faq-arrow">+</span></div><div class="faq-a">Every finding is documented with evidence — screenshots, URLs, and exact reproduction steps. The 30-min debrief call is specifically for pushback. I'd rather you challenge me than ignore findings that could help.</div></div>
+        <div class="faq-item"><div class="faq-q">What's the payment structure? <span class="faq-arrow">+</span></div><div class="faq-a">50% upfront to start, 50% upon delivery of the PDF. No surprises. If I can't start within 5 business days, you get a full refund of the deposit.</div></div>
+        <div class="faq-item"><div class="faq-q">How quickly can you start? <span class="faq-arrow">+</span></div><div class="faq-a">Typically within 3–5 business days of the discovery call. I take on a small number of clients at a time to ensure the audit gets the attention it deserves, not a templated approach.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta" style="border-bottom:none;background:var(--surface)">
+  <div class="final-inner" style="max-width:1180px;margin:0 auto;padding:6rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start">
+    <div class="reveal">
+      <div class="fhl">Book a<br><em>15-min</em><br>call.</div>
+      <p class="fsub">Tell me what you're building. I'll tell you what I'd look for in your first 15 minutes. No pitch deck. No follow-up sequence. Just a conversation.</p>
+      <div class="guarantee">
+        <div class="g-icon">✦</div>
+        <div class="g-text"><strong>If I can't identify at least 3 actionable friction points in your product, I'll refund the audit fee in full.</strong> No questions asked. The risk is entirely mine.</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.04em">Or email: tag.kumail@gmail.com</div>
+    </div>
+    <div class="reveal">
+      <div class="book-box">
+        <div class="bb-label">Full adoption audit — what's included</div>
+        <div class="bb-price">$1,500</div>
+        <div class="bb-note">// flat rate · 1 week · 50% upfront · 50% on delivery</div>
+        <ul class="bb-list">
+          <li class="bb-item">Fresh-user walkthrough: landing → install → first output</li>
+          <li class="bb-item">Full documentation audit — every page</li>
+          <li class="bb-item">Competitive comparison vs 2 tools</li>
+          <li class="bb-item">Messaging consistency: landing ↔ docs ↔ social</li>
+          <li class="bb-item">Prioritized fix list — implementable same week</li>
+          <li class="bb-item">10-page PDF deliverable</li>
+          <li class="bb-item">30-min debrief call included</li>
+          <li class="bb-item">Emerging market / Karachi perspective included</li>
+        </ul>
+        <div class="book-cta-wrap">
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="book-btn" target="_blank">Book My Free 15-Min Call →</a>
+          <div class="book-micro">The discovery call is free · No credit card · No pitch deck</div>
+          <div class="avail"><div class="avail-dot"></div>Taking new clients — 2 slots open this week</div>
+        </div>
+        <div class="alt-cta"><a href="mailto:tag.kumail@gmail.com">Prefer to email instead →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">© 2026 Kumail Raza · Karachi, Pakistan · UTC+5</div>
+  <ul class="flinks">
+    <li><a href="https://medium.com/@tag.kumail" target="_blank">Medium</a></li>
+    <li><a href="https://github.com/KumailQazi" target="_blank">GitHub</a></li>
+    <li><a href="https://www.linkedin.com/in/kumail-raza-76508856/" target="_blank">LinkedIn</a></li>
+    <li><a href="https://calendly.com/tag-kumail/new-meeting-1" target="_blank">Book a call</a></li>
+  </ul>
+</footer>
+
+<script>
+// Custom cursor
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='5px';cur.style.height='5px'});
+});
+
+// Sticky bar — show after hero
+const bar=document.getElementById('stickyBar');
+const hero=document.querySelector('.hero');
+const heroObs=new IntersectionObserver(([e])=>{
+  bar.classList.toggle('visible',!e.isIntersecting);
+},{threshold:0});
+heroObs.observe(hero);
+
+// Scroll reveal
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');ro.unobserve(e.target)}});
+},{threshold:.06,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// Stagger finding rows
+document.querySelectorAll('.frow').forEach((el,i)=>{
+  const fo=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){setTimeout(()=>{e.target.style.opacity='1';e.target.style.transform='none'},i*55);fo.unobserve(e.target)}
+    });
+  },{threshold:.08});
+  fo.observe(el);
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
