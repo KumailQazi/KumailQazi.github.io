@@ -113,7 +113,7 @@ nav{
 }
 .nav-logo{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);text-decoration:none}
 .nav-links{display:flex;align-items:center;gap:1.8rem}
-.nav-a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color .15s}
 .nav-a:hover{color:var(--lime)}
 .nav-btn{background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.42rem 1rem;text-decoration:none;transition:background .15s}
 .nav-btn:hover{background:var(--white)}
@@ -131,7 +131,7 @@ section{border-bottom:1px solid var(--border);position:relative;z-index:1}
 .hero-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto;width:100%}
 
 /* Social proof bar */
-.proof-bar{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;padding:.9rem 1.2rem;border:1px solid var(--border2);background:var(--surface);width:fit-content}
+.proof-bar{display:flex;align-items:center;gap:2rem;flex-wrap:nowrap;margin-bottom:2.5rem;padding:.9rem 1.2rem;border:1px solid var(--border2);background:var(--surface);width:auto;overflow-x:auto}
 .pb-item{display:flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--text2);letter-spacing:.04em}
 .pb-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0}
 .pb-div{width:1px;height:16px;background:var(--border2)}
@@ -165,7 +165,7 @@ h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
 .hstat:last-child{border-right:none}
 .hstat-n{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;color:var(--white);margin-bottom:.2rem}
 .hstat-n em{font-style:normal;color:var(--lime)}
-.hstat-l{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.4}
+.hstat-l{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);line-height:1.4}
 
 /* ── PROBLEM / VALUE PROP ── */
 .prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border)}
@@ -331,9 +331,9 @@ h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
 
 /* ── FOOTER ── */
 footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-bottom:calc(var(--sticky-h) + 1.4rem)}
-.fl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.07em;color:var(--muted)}
+.fl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.07em;color:var(--white)}
 .flinks{list-style:none;display:flex;gap:1.8rem}
-.flinks a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.07em;color:var(--muted);text-decoration:none;transition:color .15s}
+.flinks a{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.07em;color:var(--white);text-decoration:none;transition:color .15s}
 .flinks a:hover{color:var(--lime)}
 
 /* ── SCROLL REVEAL ── */
@@ -403,9 +403,12 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
   <a href="#top" class="nav-logo">KR_</a>
   <div class="nav-links">
     <a href="#findings" class="nav-a">Case Study</a>
-    <a href="#offerings" class="nav-a">Pricing</a>
+    <a href="#offerings" class="nav-a">Offerings</a>
+    <a href="#why" class="nav-a">Why Different</a>
+    <a href="#problem" class="nav-a">Problem</a>
+    <a href="#how" class="nav-a">I work</a>
     <a href="#faq" class="nav-a">FAQ</a>
-    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="nav-btn" target="_blank">Book My Free Call →</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="nav-a" target="_blank">Book My Call →</a>
   </div>
 </nav>
 
@@ -416,7 +419,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
   </div>
   <div class="sb-right">
     <span class="sb-microcopy">No credit card · 15 min · No pitch deck</span>
-    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="sb-cta" target="_blank">Book My Free Call →</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="nav-a" target="_blank">Book My Call →</a>
   </div>
 </div>
 
@@ -430,6 +433,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
       <div class="pb-item"><div class="pb-dot"></div>AdaL · April 2026 · Karachi, Pakistan</div>
       <div class="pb-div"></div>
       <div class="pb-item"><div class="pb-dot"></div>$0 cost to fix the highest-impact issue</div>
+      <div class="pb-div"></div>
+      <div class="pb-item"><div class="pb-dot"></div>$5,000 of Hidden Friction Onboarding saved in 3 Hours</div>
     </div>
     <div class="hero-grid">
       <div>
@@ -438,7 +443,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
       <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:1.8rem">
         <p class="hero-sub">Your SF team can't simulate what a developer in Karachi experiences when they hit your landing page for the first time.<br><br><strong>I can — and I document every moment they'd give up.</strong></p>
         <div class="hero-cta-block">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank">Book My Free 15-Min Call →</a>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank">Book My 15-Min Call →</a>
           <span class="hcta-micro">No credit card · No pitch deck · No follow-up sequence</span>
           <a href="#findings" class="hcta-secondary">See the AdaL case study ↓</a>
         </div>
@@ -480,11 +485,11 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
 <!-- MID-PAGE CTA -->
 <div class="mid-cta reveal">
   <div class="mid-cta-left">
-    <div class="mid-cta-head">See what I'd find in your product — free.</div>
+    <div class="mid-cta-head">See what I'd find in your product.</div>
     <div class="mid-cta-sub">15-minute call. You talk, I listen. I'll tell you if I can help and what I'd look for first.</div>
   </div>
   <div class="mid-cta-right">
-    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="mid-btn" target="_blank">Book My Free Call →</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="mid-btn" target="_blank">Book My Call →</a>
     <span class="mid-micro">No credit card · No pitch deck · Cancellable anytime</span>
   </div>
 </div>
@@ -572,7 +577,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
     <div class="sec-label" data-n="04">Offerings</div>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem" class="reveal">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.3rem,4.5vw,4.5rem);line-height:.95;color:var(--white)">Three ways to<br>work together.</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:var(--muted);line-height:1.6;text-align:right">Not sure which fits?<br><a href="https://calendly.com/tag-kumail/new-meeting-1" style="color:var(--lime);text-decoration:none" target="_blank">The 15-min call is free →</a></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:var(--muted);line-height:1.6;text-align:right">Not sure which fits?<br><a href="https://calendly.com/tag-kumail/new-meeting-1" style="color:var(--lime);text-decoration:none" target="_blank">Book the call →</a></div>
     </div>
     <div class="offers reveal">
       <div class="ocard">
@@ -608,8 +613,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
           <li class="oitem">10-page PDF + 30-min debrief call</li>
         </ul>
         <div class="ocard-cta">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn" target="_blank">Book My Free 15-Min Call →</a>
-          <span class="o-micro">No credit card · Discovery call is free</span>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn" target="_blank">Book My 15-Min Call →</a>
+          <span class="o-micro">No credit card · Discovery call included</span>
         </div>
       </div>
       <div class="ocard">
@@ -697,8 +702,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start" class="reveal">
       <div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.8rem);line-height:.95;color:var(--white);margin-bottom:1.2rem">Questions founders actually ask.</div>
-        <p style="font-size:.87rem;color:var(--text2);line-height:1.72;margin-bottom:2rem">If you have one that's not here, the fastest way to get an answer is the 15-min call. It's free.</p>
-        <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank" style="font-size:.72rem;max-width:280px">Book My Free Call →</a>
+        <p style="font-size:.87rem;color:var(--text2);line-height:1.72;margin-bottom:2rem">If you have one that's not here, the fastest way to get an answer is the 15-min call.</p>
+        <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank" style="font-size:.72rem;max-width:280px">Book My Call →</a>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);margin-top:.55rem;letter-spacing:.04em">No credit card · No pitch deck · 15 min</div>
       </div>
       <div class="faq-grid">
@@ -741,8 +746,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
           <li class="bb-item">Emerging market / Karachi perspective included</li>
         </ul>
         <div class="book-cta-wrap">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="book-btn" target="_blank">Book My Free 15-Min Call →</a>
-          <div class="book-micro">The discovery call is free · No credit card · No pitch deck</div>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="book-btn" target="_blank">Book My 15-Min Call →</a>
+          <div class="book-micro">The discovery call · No credit card · No pitch deck</div>
           <div class="avail"><div class="avail-dot"></div>Taking new clients — 2 slots open this week</div>
         </div>
         <div class="alt-cta"><a href="mailto:krmaazha@gmail.com">Prefer to email instead →</a></div>
