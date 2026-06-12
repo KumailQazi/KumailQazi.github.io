@@ -709,12 +709,35 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
       <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:1.8rem">
         <p class="hero-sub">Your SF team can't simulate what a developer in Karachi experiences when they hit your landing page for the first time.<br><br><strong>I can — and I document every moment they'd give up.</strong></p>
         <div class="hero-cta-block">
-          <!-- Lead Capture Form -->
-          <form action="https://formspree.io/f/mbdezqby" method="POST" class="lead-capture" onsubmit="trackCta('email_capture_hero');" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;width:100%;max-width:380px;">
-            <input type="hidden" name="_next" value="https://kumailqazi.github.io/AdaL_Friction_Log_V1.pdf">
-            <input type="email" name="email" placeholder="Your email address..." required style="flex:1;min-width:200px;padding:.9rem 1rem;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:.75rem;outline:none;" />
-            <button type="submit" style="background:var(--lime);color:#070705;border:none;padding:.9rem 1.2rem;font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:500;text-transform:uppercase;cursor:pointer;transition:background .15s;flex-shrink:0;">Get PDF</button>
+                    <!-- Lead Capture Form -->
+          <form id="hero-lead-form" class="lead-capture" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;width:100%;max-width:380px;">
+            <input type="email" id="hero-email" name="email" placeholder="Your email address..." required style="flex:1;min-width:200px;padding:.9rem 1rem;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:.75rem;outline:none;" />
+            <button type="submit" id="hero-submit-btn" style="background:var(--lime);color:#070705;border:none;padding:.9rem 1.2rem;font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:500;text-transform:uppercase;cursor:pointer;transition:background .15s;flex-shrink:0;">Get PDF</button>
           </form>
+          <script>
+            document.getElementById('hero-lead-form').addEventListener('submit', function(e) {
+              e.preventDefault();
+              if(typeof trackCta === 'function') trackCta('email_capture_hero');
+              var btn = document.getElementById('hero-submit-btn');
+              var email = document.getElementById('hero-email').value;
+              btn.innerText = 'Sending...';
+              fetch('https://formspree.io/f/mbdezqby', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+              }).then(function(response) {
+                if (response.ok) {
+                  window.location.href = 'https://kumailqazi.github.io/AdaL_Friction_Log_V1.pdf';
+                } else {
+                  alert('Oops! There was a problem submitting your form');
+                  btn.innerText = 'Get PDF';
+                }
+              }).catch(function(error) {
+                alert('Oops! There was a problem submitting your form');
+                btn.innerText = 'Get PDF';
+              });
+            });
+          </script>
           
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:1rem;">
             <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=hero_main" class="hcta-main" target="_blank" onclick="trackCta('hero_main');">Book My 15-Min Call →</a>
