@@ -1,21 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XLPLW0BPX1"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kumail Qazi — Developer Tools Onboarding Audits</title>
+<meta name="description" content="I find the hidden friction killing your developer tool's conversion — in 1 week, for $1,500. Case study: 4 critical issues found in 15 minutes on AdaL.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="favicon_io/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+<link rel="manifest" href="favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:title" content="Kumail Qazi — Developer Tools Onboarding Audits From Outside The Bubble" />
+<meta property="og:description" content="I find the hidden friction killing your developer tool's conversion — in 1 week, for $1,500." />
+<meta property="og:url" content="https://kumailqazi.github.io" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://kumailqazi.github.io/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Kumail Qazi — Developer Tools Onboarding Audits From Outside The Bubble" />
+<meta name="twitter:description" content="I find the hidden friction killing your developer tool's conversion — in 1 week, for $1,500." />
+<meta name="twitter:image" content="https://kumailqazi.github.io/og-image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WYXCWPGFWC">
+  // Unified CTA Tracker
+  function trackCta(label) {
+    if (typeof gtag === 'function') {
+      gtag('event', 'qualify_lead', {
+        event_category: 'cta',
+        event_label: label,
+        value: 1
+      });
+    }
+  }
+</script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-XLPLW0BPX1');
+  gtag('config', 'G-WYXCWPGFWC', {
+    custom_map: {
+      'dimension1': 'llm_platform'
+    }
+  });
+
+  // Track LLM referrers
+  function trackLLMReferrer() {
+    const referrer = document.referrer;
+    const llmPlatforms = [
+      'chat.openai.com',
+      'claude.ai',
+      'perplexity.ai',
+      'gemini.google.com',
+      'poe.com',
+      'phind.com'
+    ];
+    
+    if (llmPlatforms.some(platform => referrer.includes(platform))) {
+      gtag('config', 'G-WYXCWPGFWC', {
+        'llm_platform': referrer
+      });
+    }
+  }
+  
+  trackLLMReferrer();
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kumail Raza — Developer Tools Onboarding Audits From Outside Silicon Valley</title>
-<meta name="description" content="I find the hidden friction killing your developer tool's conversion — in 1 week, for $1,500. Case study: 4 critical issues found in 15 minutes on AdaL.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wn9dk68g3x");
+</script>
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Outside the Bubble – Developer Tools Onboarding Audits",
+  "provider": {
+    "@type": "Person",
+    "name": "Kumail Qazi",
+    "jobTitle": "AI & Data Engineer",
+    "description": "Independent consultant specialising in fresh‑user simulation and onboarding friction audits for developer tools, tested from Karachi.",
+    "url": "https://kumailqazi.github.io",
+    "sameAs": [
+      "https://www.linkedin.com/in/kumail-raza-76508856/",
+      "https://github.com/KumailQazi",
+      "https://medium.com/@tag.kumail"
+    ],
+    "knowsAbout": [
+      "Developer tool onboarding",
+      "Fresh‑user simulation",
+      "Emerging market developer research",
+      "ATS and developer experience"
+    ]
+  },
+  "description": "Your SF team can't simulate what a developer in Karachi experiences when they hit your landing page for the first time. I can. Fresh‑user simulation, onboarding friction audits, and emerging market research for developer tools.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Starter – Onboarding Friction Audit",
+      "price": "500.00",
+      "priceCurrency": "USD",
+      "description": "3‑day fresh‑user walkthrough, friction points with severity, top‑3 fixes, 5‑page PDF, emerging market lens."
+    },
+    {
+      "@type": "Offer",
+      "name": "Most Popular – Full Adoption Audit",
+      "price": "1500.00",
+      "priceCurrency": "USD",
+      "description": "Everything in Starter + full documentation audit, competitive comparison, messaging consistency audit, 10‑page PDF + 30‑min debrief."
+    },
+    {
+      "@type": "Offer",
+      "name": "Deep Research – Emerging Market Research",
+      "price": "3000.00",
+      "priceCurrency": "USD",
+      "description": "Full adoption audit + developer survey (South Asia/SE Asia), payment friction & pricing analysis, community health assessment."
+    }
+  ],
+  "areaServed": "Worldwide",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Developer tool founders, product managers, and engineering leaders"
+  },
+  "hasFAQPage": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you need codebase access?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. I simulate exactly what a new user experiences – from search to first output. Codebase access isn't needed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if we're pre‑launch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pre‑launch audits are the ideal time to find friction before it impacts conversion. I can work with staging environments."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if I disagree with your findings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I guarantee at least three actionable friction points. If I don't find them, I'll refund the audit fee in full."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is this different from a normal UX audit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most UX audits are done by researchers in your own market. I evaluate from an emerging‑market developer's perspective, adding a layer of insight domestic testers can't provide."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's your turnaround time?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Starter audits in 3 days, Full audits in 1 week. Deep Research takes 2–4 weeks depending on survey scope."
+        }
+      }
+    ]
+  }
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -129,18 +299,18 @@ nav{
 
 /* ── SECTIONS ── */
 .wrap{max-width:1180px;margin:0 auto;padding:5.5rem 2rem}
-section{border-bottom:1px solid var(--border);position:relative;z-index:1}
+section{border-bottom:1px solid var(--border);position:relative;z-index:1;background:var(--bg)}
 .sec-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:3.5rem;display:flex;align-items:center;gap:1rem}
 .sec-label::before{content:attr(data-n);color:var(--muted2)}
 .sec-label::after{content:'';flex:1;max-width:40px;height:1px;background:var(--lime-dark)}
 
 /* ── HERO ── */
-.hero{min-height:100vh;padding:calc(var(--nav-h) + 2rem) 2rem 4rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
-.hero-bg{position:absolute;right:-2rem;bottom:-5rem;font-family:'Bebas Neue',sans-serif;font-size:clamp(14rem,32vw,40rem);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.028);line-height:1;pointer-events:none;user-select:none;z-index:0}
+.hero{min-height:100vh;padding:calc(var(--ticker-h) + var(--nav-h) + 2rem) 2rem 4rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.hero-bg{position:absolute;right:0;bottom:-5rem;font-family:'Bebas Neue',sans-serif;font-size:clamp(14rem,32vw,40rem);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.028);line-height:1;pointer-events:none;user-select:none;z-index:0;max-width:100vw}
 .hero-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto;width:100%}
 
 /* Social proof bar */
-.proof-bar{display:flex;align-items:center;gap:2rem;flex-wrap:nowrap;margin-bottom:2.5rem;padding:.9rem 1.2rem;border:1px solid var(--border2);background:var(--surface);width:auto;overflow-x:auto}
+.proof-bar{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;padding:.9rem 1.2rem;border:1px solid var(--border2);background:var(--surface);width:100%;overflow-x:hidden}
 .pb-item{display:flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.63rem;color:var(--text2);letter-spacing:.04em}
 .pb-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0}
 .pb-div{width:1px;height:16px;background:var(--border2)}
@@ -193,17 +363,17 @@ h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
 .mid-cta-head{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);line-height:.95;color:#070705;margin-bottom:.5rem}
 .mid-cta-sub{font-size:.88rem;color:rgba(7,7,5,.6);line-height:1.6;max-width:400px}
 .mid-cta-right{display:flex;flex-direction:column;gap:.5rem;align-items:flex-start}
-.mid-btn{background:#070705;color:var(--lime);font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.85rem 1.8rem;text-decoration:none;transition:background .15s;white-space:nowrap;display:inline-block}
+.mid-btn{background:#070705;color:var(--lime);font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.85rem 1.8rem;text-decoration:none;transition:background .15s;white-space:normal;display:inline-block;max-width:100%}
 .mid-btn:hover{background:#1a1a10}
 .mid-micro{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(7,7,5,.5);letter-spacing:.04em}
 
 /* ── TERMINAL ── */
-.term-wrap{border:1px solid var(--border2);background:#09090700}
-.term-bar{background:var(--border);padding:.65rem 1rem;display:flex;align-items:center;gap:.45rem}
-.td{width:10px;height:10px;border-radius:50%}
+.term-wrap{border:1px solid var(--border2);background:#09090700;max-width:100%;overflow:hidden}
+.term-bar{background:var(--border);padding:.65rem 1rem;display:flex;align-items:center;gap:.45rem;overflow:hidden;white-space:nowrap}
+.td{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .t-r{background:#e8402d}.t-a{background:#e89428}.t-g{background:#3dca5b}
-.t-title{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.06em;margin-left:.4rem}
-.term-body{padding:1.3rem 1.5rem;font-family:'IBM Plex Mono',monospace;font-size:.76rem;line-height:1.88}
+.t-title{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.06em;margin-left:.4rem;overflow:hidden;text-overflow:ellipsis}
+.term-body{padding:1.3rem 1.5rem;font-family:'IBM Plex Mono',monospace;font-size:.76rem;line-height:1.88;overflow-x:auto;overflow-y:hidden}
 .tp{color:var(--lime)}.tc{color:var(--white)}.to{color:var(--text2)}
 .te{color:var(--red)}.tw{color:var(--amber)}.tok{color:var(--green)}.tdim{color:var(--muted)}
 .tcur{display:inline-block;width:7px;height:.88em;background:var(--lime);animation:blink .9s step-end infinite;vertical-align:text-bottom}
@@ -234,7 +404,7 @@ h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
 .cbc-left{font-size:.93rem;color:var(--text)}
 .cbc-left strong{color:var(--lime);font-weight:400}
 .cbc-right{display:flex;flex-direction:column;gap:.4rem;align-items:flex-end}
-.cbc-btn{background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.72rem 1.4rem;text-decoration:none;transition:background .15s;white-space:nowrap;display:inline-block}
+.cbc-btn{background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.72rem 1.4rem;text-decoration:none;transition:background .15s;white-space:normal;display:inline-block;max-width:100%}
 .cbc-btn:hover{background:var(--white)}
 .cbc-micro{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.04em}
 
@@ -302,7 +472,8 @@ h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
 
 /* ── FINAL CTA SECTION ── */
 .final-cta-section{background:var(--surface);padding:6rem 2rem;border-bottom:none}
-.final-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.final-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;padding:0}
+.final-inner>div{min-width:0}
 .fhl{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6.5vw,6.5rem);line-height:.9;color:var(--white);margin-bottom:1.2rem}
 .fhl em{font-style:normal;display:block;color:var(--lime)}
 .fsub{font-size:.9rem;line-height:1.75;color:var(--text2);margin-bottom:2rem;max-width:420px}
@@ -310,12 +481,12 @@ h1 .outline{-webkit-text-stroke:1px var(--white);color:transparent}
 .g-icon{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--lime);flex-shrink:0;margin-top:.05rem}
 .g-text{font-size:.82rem;color:var(--text2);line-height:1.6}
 .g-text strong{color:var(--text);font-weight:400}
-.book-box{background:var(--bg);border:1px solid var(--border2);padding:2.3rem}
+.book-box{background:var(--bg);border:1px solid var(--border2);padding:2.3rem;max-width:100%;overflow:hidden}
 .bb-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.3rem}
-.bb-price{font-family:'Bebas Neue',sans-serif;font-size:4.2rem;line-height:1;color:var(--lime);margin-bottom:.15rem}
+.bb-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,4.2rem);line-height:1;color:var(--lime);margin-bottom:.15rem}
 .bb-note{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.05em;margin-bottom:1.8rem}
 .bb-list{list-style:none;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border)}
-.bb-item{display:flex;align-items:flex-start;gap:.55rem;font-size:.82rem;color:var(--text2);padding:.3rem 0}
+.bb-item{display:flex;align-items:flex-start;gap:.55rem;font-size:.82rem;color:var(--text2);padding:.3rem 0;word-wrap:break-word}
 .bb-item::before{content:'✓';color:var(--lime);font-size:.72rem;flex-shrink:0;margin-top:.18rem}
 .book-cta-wrap{display:flex;flex-direction:column;gap:.45rem}
 .book-btn{display:block;background:var(--lime);color:#070705;font-family:'IBM Plex Mono',monospace;font-size:.76rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;padding:.95rem 1.5rem;text-decoration:none;text-align:center;transition:background .15s,transform .12s}
@@ -351,7 +522,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
 
 /* ── RESPONSIVE ── */
 @media(max-width:860px){
-  .hero-grid,.case-head,.why-grid,.final-inner{grid-template-columns:1fr}
+  .hero-grid,.case-head,.why-grid,.final-inner{grid-template-columns:1fr;gap:2rem}
   .why-sticky{position:static}
   .hero-bottom{grid-template-columns:1fr 1fr}
   .offers,.proof-strip{grid-template-columns:1fr}
@@ -373,17 +544,102 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
   h1{font-size:clamp(3.5rem,14vw,7rem)}
   footer{padding-bottom:calc(var(--sticky-h) + 1rem)}
   .ticker{font-size:.55rem}
+  .proof-bar{gap:1rem;padding:.7rem .8rem}
+  .pb-item{font-size:.58rem}
+  .hero-bg{display:none}
+  .whatsapp-tooltip{right:60px;font-size:.6rem;max-width:150px}
+  .hero{padding-top:calc(var(--ticker-h) + var(--nav-h) + 1rem)}
+  .book-box{padding:1.5rem}
+  .bb-item{font-size:.75rem}
+  .term-wrap{font-size:.7rem}
+  .term-bar{padding:.5rem .8rem}
+  .t-title{font-size:.55rem}
+  .term-body{padding:1rem;font-size:.68rem}
+  .final-cta-section{padding:4rem 1.2rem}
 }
 @media(max-width:520px){
   .hero-bottom{grid-template-columns:1fr 1fr}
-  .proof-bar{gap:1rem}
+  .proof-bar{gap:.8rem;padding:.6rem .8rem;flex-wrap:wrap}
   .pb-div{display:none}
+  .pb-item{font-size:.55rem}
+  .mid-btn{padding:.7rem 1.4rem;font-size:.7rem}
+  .cbc-btn{padding:.65rem 1.2rem;font-size:.65rem}
+  .whatsapp-float{width:50px;height:50px;bottom:80px;right:15px}
+  .whatsapp-tooltip{display:none}
+  .hero{padding-top:calc(var(--ticker-h) + var(--nav-h) + 1rem)}
+  .book-box{padding:1.2rem}
+  .bb-item{font-size:.7rem}
+  .term-body{padding:.8rem;font-size:.6rem;line-height:1.6}
+  .term-bar{padding:.4rem .6rem}
+  .t-title{font-size:.5rem}
+  .td{width:8px;height:8px}
+  .final-cta-section{padding:3rem 1rem}
+  .final-inner{gap:1.5rem}
+}
+
+/* ── WHATSAPP FLOATING BUTTON ── */
+.whatsapp-float{
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
+  cursor:pointer;
+  text-decoration:none;
+  z-index:1000;
+  transition:transform .2s, box-shadow .2s;
+}
+.whatsapp-float:hover{
+  transform:scale(1.1);
+  box-shadow:0 6px 16px rgba(0,0,0,.4);
+}
+.whatsapp-float::before{
+  content:'💬';
+  font-size:20px;
+}
+.whatsapp-tooltip{
+  position:absolute;
+  right:70px;
+  top:50%;
+  transform:translateY(-50%);
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:.5rem .8rem;
+  border-radius:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem;
+  color:var(--white);
+  white-space:normal;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .2s;
+  max-width:200px;
+}
+.whatsapp-float:hover .whatsapp-tooltip{
+  opacity:1;
 }
 </style>
 </head>
 <body>
 
 <div id="cur"></div>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/923319105058?text=Hi%2C%20I'm%20interested%20in%20your%20developer%20tools%20audit%20service.%20Can%20we%20chat%20about%20a%20quick%20question%3F&utm_source=website&utm_medium=whatsapp&utm_campaign=quick_chat&utm_content=floating_button" 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener"
+   onclick="gtag('event', 'whatsapp_click', { 'event_category': 'engagement', 'event_label': 'floating_button' });">
+  <span class="whatsapp-tooltip">Quick questions? Chat on WhatsApp</span>
+</a>
 
 <!-- TICKER (SLIDING ANIMATION WORKING) -->
 <div class="ticker">
@@ -417,7 +673,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
     <a href="#problem" class="nav-a">Problem</a>
     <a href="#how" class="nav-a">I work</a>
     <a href="#faq" class="nav-a">FAQ</a>
-    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="nav-a" target="_blank">Book My Call →</a>
+    <a href="https://wa.me/923319105058?text=Hi%2C%20I'm%20interested%20in%20your%20audit%20service&utm_source=website&utm_medium=whatsapp&utm_campaign=quick_chat&utm_content=navigation" class="nav-a" target="_blank" rel="noopener" onclick="gtag('event', 'whatsapp_click', { 'event_category': 'engagement', 'event_label': 'navigation' });">💬 WhatsApp</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=navigation" class="nav-a" target="_blank" onclick=\"trackCta('navigation');\">Book My Call →</a>
   </div>
 </nav>
 
@@ -428,7 +685,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
   </div>
   <div class="sb-right">
     <span class="sb-microcopy">No credit card · 15 min · No pitch deck</span>
-    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="nav-a" target="_blank">Book My Call →</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=sticky_bar" class="nav-a" target="_blank" onclick=\"trackCta('sticky_bar');\">Book My Call →</a>
   </div>
 </div>
 
@@ -452,9 +709,17 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
       <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:1.8rem">
         <p class="hero-sub">Your SF team can't simulate what a developer in Karachi experiences when they hit your landing page for the first time.<br><br><strong>I can — and I document every moment they'd give up.</strong></p>
         <div class="hero-cta-block">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank">Book My 15-Min Call →</a>
-          <span class="hcta-micro">No credit card · No pitch deck · No follow-up sequence</span>
-          <a href="#findings" class="hcta-secondary">See the AdaL case study ↓</a>
+          <!-- Lead Capture Form -->
+          <form action="https://formspree.io/f/mbdezqby" method="POST" class="lead-capture" onsubmit="trackCta('email_capture_hero');" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;width:100%;max-width:380px;">
+            <input type="hidden" name="_next" value="https://kumailqazi.github.io/AdaL_Friction_Log_V1.pdf">
+            <input type="email" name="email" placeholder="Your email address..." required style="flex:1;min-width:200px;padding:.9rem 1rem;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:.75rem;outline:none;" />
+            <button type="submit" style="background:var(--lime);color:#070705;border:none;padding:.9rem 1.2rem;font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:500;text-transform:uppercase;cursor:pointer;transition:background .15s;flex-shrink:0;">Get PDF</button>
+          </form>
+          
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=hero_main" class="hcta-main" target="_blank" onclick="trackCta('hero_main');">Book My 15-Min Call →</a>
+            <span class="hcta-micro">No credit card · No pitch deck</span>
+          </div>
         </div>
       </div>
     </div>
@@ -498,7 +763,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
     <div class="mid-cta-sub">15-minute call. You talk, I listen. I'll tell you if I can help and what I'd look for first.</div>
   </div>
   <div class="mid-cta-right">
-    <a href="https://calendly.com/tag-kumail/new-meeting-1" class="mid-btn" target="_blank">Book My Call →</a>
+    <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=mid_page_cta" class="mid-btn" target="_blank" onclick=\"trackCta('mid_page_cta');\">Book My Call →</a>
     <span class="mid-micro">No credit card · No pitch deck · Cancellable anytime</span>
   </div>
 </div>
@@ -573,7 +838,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
     <div class="case-bottom-cta reveal">
       <div class="cbc-left">This is what I deliver for <strong>every client</strong> — documented, prioritized, actionable. No fluff. What would I find in <strong>your</strong> product?</div>
       <div class="cbc-right">
-        <a href="https://calendly.com/tag-kumail/new-meeting-1" class="cbc-btn" target="_blank">Book My Free 15-Min Call →</a>
+        <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=case_study_cta" class="cbc-btn" target="_blank" onclick=\"trackCta('case_study_cta');\">Book My Free 15-Min Call →</a>
         <span class="cbc-micro">No credit card · No pitch deck · No follow-up pressure</span>
       </div>
     </div>
@@ -586,10 +851,10 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
     <div class="sec-label" data-n="04">Offerings</div>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem" class="reveal">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.3rem,4.5vw,4.5rem);line-height:.95;color:var(--white)">Three ways to<br>work together.</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:var(--muted);line-height:1.6;text-align:right">Not sure which fits?<br><a href="https://calendly.com/tag-kumail/new-meeting-1" style="color:var(--lime);text-decoration:none" target="_blank">Book the call →</a></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:var(--muted);line-height:1.6;text-align:right">Not sure which fits?<br><a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=offerings_helper" style="color:var(--lime);text-decoration:none" target="_blank" onclick=\"trackCta('offerings_helper');\">Book call →</a></div>
     </div>
     <div class="offers reveal">
-      <div class="ocard">
+      <div class="ocard" style="border: 1px solid var(--lime); background:rgba(201,241,53,0.03);">
         <div class="obadge">Starter</div>
         <div class="oprice">$500</div>
         <div class="otime">// delivered in 3 days</div>
@@ -603,7 +868,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
           <li class="oitem">Emerging market lens included</li>
         </ul>
         <div class="ocard-cta">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn o-btn-outline" target="_blank">Book a Call to Start →</a>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=starter_audit" class="o-btn o-btn-outline" target="_blank" onclick=\"trackCta('starter_audit');\">Book a Call to Start →</a>
           <span class="o-micro">50% upfront · 50% on delivery</span>
         </div>
       </div>
@@ -622,7 +887,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
           <li class="oitem">10-page PDF + 30-min debrief call</li>
         </ul>
         <div class="ocard-cta">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn" target="_blank">Book My 15-Min Call →</a>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=pro_audit" class="o-btn" target="_blank" onclick=\"trackCta('pro_audit');\">Book My 15-Min Call →</a>
           <span class="o-micro">No credit card · Discovery call included</span>
         </div>
       </div>
@@ -640,7 +905,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
           <li class="oitem">Segment report: the users you're not tracking</li>
         </ul>
         <div class="ocard-cta">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="o-btn o-btn-outline" target="_blank">Discuss Scope →</a>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=custom_audit" class="o-btn o-btn-outline" target="_blank" onclick=\"trackCta('custom_audit');\">Discuss Scope →</a>
           <span class="o-micro">Scope defined together on discovery call</span>
         </div>
       </div>
@@ -712,7 +977,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
       <div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.8rem);line-height:.95;color:var(--white);margin-bottom:1.2rem">Questions founders actually ask.</div>
         <p style="font-size:.87rem;color:var(--text2);line-height:1.72;margin-bottom:2rem">If you have one that's not here, the fastest way to get an answer is the 15-min call.</p>
-        <a href="https://calendly.com/tag-kumail/new-meeting-1" class="hcta-main" target="_blank" style="font-size:.72rem;max-width:280px">Book My Call →</a>
+        <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=faq_cta" class="hcta-main" target="_blank" style="font-size:.72rem;max-width:280px" onclick=\"trackCta('faq_cta');\">Book My Call →</a>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);margin-top:.55rem;letter-spacing:.04em">No credit card · No pitch deck · 15 min</div>
       </div>
       <div class="faq-grid">
@@ -728,8 +993,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
 </section>
 
 <!-- FINAL CTA -->
-<section id="cta" style="border-bottom:none;background:var(--surface)">
-  <div class="final-inner" style="max-width:1180px;margin:0 auto;padding:6rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start">
+<section id="cta" class="final-cta-section">
+  <div class="final-inner">
     <div class="reveal">
       <div class="fhl">Book a<br><em>15-min</em><br>call.</div>
       <p class="fsub">Tell me what you're building. I'll tell you what I'd look for in your first 15 minutes. No pitch deck. No follow-up sequence. Just a conversation.</p>
@@ -755,9 +1020,16 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
           <li class="bb-item">Emerging market / Karachi perspective included</li>
         </ul>
         <div class="book-cta-wrap">
-          <a href="https://calendly.com/tag-kumail/new-meeting-1" class="book-btn" target="_blank">Book My 15-Min Call →</a>
+          <a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=final_cta" class="book-btn" target="_blank" onclick=\"trackCta('final_cta');\">Book My 15-Min Call →</a>
           <div class="book-micro">The discovery call · No credit card · No pitch deck</div>
-          <div class="avail"><div class="avail-dot"></div>Taking new clients — 2 slots open this week</div>
+          <div class="avail"><div class="avail-dot"></div>Taking new clients — Next available: <span id="dynamic-date">Booking Fast</span></div>
+          <script>
+            // Calculate next Monday
+            let d = new Date();
+            d.setDate(d.getDate() + ((1 + 7 - d.getDay()) % 7 || 7));
+            let options = { month: 'short', day: 'numeric' };
+            document.getElementById('dynamic-date').innerText = d.toLocaleDateString('en-US', options);
+          </script>
         </div>
         <div class="alt-cta"><a href="mailto:krmaazha@gmail.com">Prefer to email instead →</a></div>
       </div>
@@ -768,10 +1040,11 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;display:flex;justi
 <footer>
   <div class="fl">© 2026 Kumail Raza · Karachi, Pakistan · UTC+5</div>
   <ul class="flinks">
-    <li><a href="https://medium.com/@tag.kumail" target="_blank">Medium</a></li>
-    <li><a href="https://github.com/KumailQazi" target="_blank">GitHub</a></li>
-    <li><a href="https://www.linkedin.com/in/kumail-raza-76508856/" target="_blank">LinkedIn</a></li>
-    <li><a href="https://calendly.com/tag-kumail/new-meeting-1" target="_blank">Book a call</a></li>
+    <li><a href="https://medium.com/@tag.kumail" target="_blank" onclick="gtag('event', 'social_click', { 'event_category': 'outbound', 'event_label': 'medium' });">Medium</a></li>
+    <li><a href="https://github.com/KumailQazi" target="_blank" onclick="gtag('event', 'social_click', { 'event_category': 'outbound', 'event_label': 'github' });">GitHub</a></li>
+    <li><a href="https://www.linkedin.com/in/kumail-raza-76508856/" target="_blank" onclick="gtag('event', 'social_click', { 'event_category': 'outbound', 'event_label': 'linkedin' });">LinkedIn</a></li>
+    <li><a href="https://wa.me/923319105058?text=Hi%2C%20I'm%20interested%20in%20your%20audit%20service&utm_source=website&utm_medium=whatsapp&utm_campaign=quick_chat&utm_content=footer" target="_blank" rel="noopener" onclick="gtag('event', 'whatsapp_click', { 'event_category': 'engagement', 'event_label': 'footer' });">💬 WhatsApp</a></li>
+    <li><a href="https://calendly.com/tag-kumail/new-meeting-1?utm_source=website&utm_medium=calendly_button&utm_campaign=discovery_call&utm_content=footer" target="_blank" onclick=\"trackCta('footer');\">Book a call</a></li>
   </ul>
 </footer>
 
